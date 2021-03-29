@@ -132,6 +132,7 @@ describe('Protodoc.Structure.Structure', () => {
 				let c = {};
 				let x = 0;
 				var end = true;
+				var template = \`test\`;
 			`;
 
 			let runtime = new Protodoc.Runtime();
@@ -176,6 +177,8 @@ describe('Protodoc.Structure.Structure', () => {
 			let old_end = end.at({line: 6});
 
 			check.typeof(old_end, 'boolean');
+
+			check.type(vars, 'template', 'string');
 		});
 	});
 });

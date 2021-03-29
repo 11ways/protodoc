@@ -104,4 +104,18 @@ describe('Protodoc.Node', () => {
 		assert.strictEqual(foo.type, 'undefined');
 		assert.strictEqual(foo.class, null);
 	});
+
+	testNode('TemplateLiteral', () => {
+
+		let vars = testDeclaration('let foo = `a string`');
+
+		check.type(vars, 'foo', 'string');
+	});
+
+	testNode('ObjectPattern', () => {
+
+		let vars = testDeclaration('let {foo} = {foo: 1}');
+
+		check.type(vars, 'foo', 'number');
+	});
 });
