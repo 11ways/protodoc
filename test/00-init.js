@@ -1,9 +1,11 @@
-var assert = require('assert');
+const assert = require('assert');
 
-describe('NodeSkeleton', function() {
+global.Protodoc = null;
 
-	it('should work as expected', function() {
+describe('Protodoc', () => {
 
+	it('should load the namespace', () => {
+		global.Protodoc = require('../index.js');
 	});
 
 });
