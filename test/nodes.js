@@ -77,6 +77,16 @@ describe('Protodoc.Node', () => {
 		assert.strictEqual(foo.class, null);
 	});
 
+	testNode('AwaitExpression', () => {
+
+		let node = parse(`async function foo() {
+			await test();
+		}`);
+
+		// @TODO: tests
+
+	});
+
 	// testNode('AssignmentPattern', () => {
 
 	// });
@@ -105,17 +115,35 @@ describe('Protodoc.Node', () => {
 		assert.strictEqual(foo.class, null);
 	});
 
+	testNode('ObjectPattern', () => {
+
+		let {vars} = testDeclaration('let {foo} = {foo: 1}');
+
+		check.type(vars, 'foo', 'number');
+	});
+
+	testNode('RestElement', () => {
+
+		let {vars} = testDeclaration('let {a, foo, ...others} = {a: 1, b: 2, c: 3, foo: 99}');
+
+		check.type(vars, 'a', 'number');
+		check.type(vars, 'others', 'object');
+
+		let others = vars.others;
+
+		check.typeof(others.get('b'), 'number');
+		check.typeof(others.get('c'), 'number');
+
+		assert.strictEqual(others.get('a'), undefined);
+		assert.strictEqual(others.get('foo'), undefined);
+	});
+
 	testNode('TemplateLiteral', () => {
 
-		let vars = testDeclaration('let foo = `a string`');
+		let {vars} = testDeclaration('let foo = `a string`');
 
 		check.type(vars, 'foo', 'string');
 	});
 
-	testNode('ObjectPattern', () => {
-
-		let vars = testDeclaration('let {foo} = {foo: 1}');
-
-		check.type(vars, 'foo', 'number');
-	});
+	
 });
