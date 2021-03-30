@@ -115,6 +115,25 @@ describe('Protodoc.Node', () => {
 		assert.strictEqual(foo.class, null);
 	});
 
+	testNode('ForStatement', () => {
+
+		let {vars} = testDeclaration(`let foo; for(foo = 0; foo < 100; foo++) {}`);
+
+		check.type(vars, 'foo', 'number');
+
+		let root;
+
+		({root, vars} = testDeclaration(`let foo; for (let i = 0; foo < 100; foo++) {}`));
+
+		check.type(vars, 'i', undefined);
+
+		let declaration_node = root.getNodeAt(15);
+		let scope = declaration_node.getScope();
+		let scoped_vars = scope.getAll();
+
+		check.type(scoped_vars, 'i', 'number');
+	});
+
 	testNode('ObjectPattern', () => {
 
 		let {vars} = testDeclaration('let {foo} = {foo: 1}');

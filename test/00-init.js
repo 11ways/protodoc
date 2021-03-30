@@ -25,6 +25,11 @@ check.type = function checkVariableType(vars, name, type) {
 
 	let variable = vars[name];
 
+	if (type === undefined) {
+		assert.strictEqual(variable, undefined, 'Expected no variable named "' + name + '"');
+		return;
+	}
+
 	assert.notStrictEqual(variable, undefined, 'Expected a variable named "' + name + '"');
 
 	assert.strictEqual(variable.type, type, 'The "' + name + '" variable should be of type "' + type + '"');

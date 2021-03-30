@@ -16,7 +16,8 @@
 	"dependencies"    : {
 		"protoblast"  : "~0.7.7",
 		"acorn"       : "~8.1.0",
-		"acorn-loose" : "~8.0.2"
+		"acorn-loose" : "~8.0.2",
+		"vscode-languageserver-types": "~3.16.0"
 	},
 	"devDependencies" : {
 		"codecov"    : "~3.8.1",
