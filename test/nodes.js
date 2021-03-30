@@ -134,6 +134,25 @@ describe('Protodoc.Node', () => {
 		check.type(scoped_vars, 'i', 'number');
 	});
 
+	testNode('ForInStatement', () => {
+
+		let {vars} = testDeclaration(`let foo; for(foo in data) {}`);
+
+		check.type(vars, 'foo', 'string');
+
+		let root;
+
+		({root, vars} = testDeclaration(`let foo; for (let key in data) {}`));
+
+		check.type(vars, 'key', undefined);
+
+		let declaration_node = root.getNodeAt(15);
+		let scope = declaration_node.getScope();
+		let scoped_vars = scope.getAll();
+
+		check.type(scoped_vars, 'key', 'string');
+	});
+
 	testNode('ObjectPattern', () => {
 
 		let {vars} = testDeclaration('let {foo} = {foo: 1}');
