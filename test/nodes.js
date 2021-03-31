@@ -67,6 +67,17 @@ describe('Protodoc.Node', () => {
 		check.typeof(first, 'number');
 	});
 
+	testNode('ArrayPattern', () => {
+
+		let {vars, foo} = testDeclaration(`let [foo, ...rest] = [1, 2, 3]`);
+
+		check.type(vars, 'foo', 'number');
+
+		check.type(vars, 'rest', 'object');
+		assert.strictEqual(vars.rest.class, 'Array');
+
+	});
+
 	testNode('ArrowFunctionExpression', () => {
 
 		let {foo} = testDeclaration(`let foo = err => 1`);
