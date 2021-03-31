@@ -52,13 +52,19 @@ describe('Protodoc.Node', () => {
 
 	testNode('ArrayExpression', () => {
 		let source = `
-			let foo = [1, 2, 3];
+			let one = 1;
+			let foo = [one, 2, 3];
 		`;
 
-		let {foo} = testDeclaration(source);
+		let {vars, foo} = testDeclaration(source);
 
-		assert.strictEqual(foo.type, 'object');
+		check.type(vars, 'foo', 'object');
 		assert.strictEqual(foo.class, 'Array');
+
+		check.type(vars, 'one', 'number');
+
+		let first = foo.get(0);
+		check.typeof(first, 'number');
 	});
 
 	testNode('ArrowFunctionExpression', () => {
@@ -155,9 +161,10 @@ describe('Protodoc.Node', () => {
 
 	testNode('ObjectPattern', () => {
 
-		let {vars} = testDeclaration('let {foo} = {foo: 1}');
+		let {vars} = testDeclaration('let {foo, empty} = {foo: 1}');
 
 		check.type(vars, 'foo', 'number');
+		check.type(vars, 'empty', 'undefined');
 	});
 
 	testNode('RestElement', () => {
