@@ -1,6 +1,3 @@
-const assert = require('assert');
-
-
 describe('Protodoc.Structure.Structure', () => {
 
 	describe('#at(position)', () => {
@@ -31,15 +28,15 @@ describe('Protodoc.Structure.Structure', () => {
 
 			// The "end" result should be a string
 			assert.strictEqual(a.type, 'string');
-			assert.strictEqual(a.class, null);
+			assert.strictEqual(a.class, undefined);
 
 			let old_a = a.at({line: 2});
 			assert.strictEqual(old_a.type, 'number');
-			assert.strictEqual(old_a.class, null);
+			assert.strictEqual(old_a.class, undefined);
 
-			old_a = a.at({line: 1, character: 7});
+			old_a = a.at({line: 1, character: 8});
 			assert.strictEqual(old_a.type, 'number');
-			assert.strictEqual(old_a.class, null);
+			assert.strictEqual(old_a.class, undefined);
 
 			old_a = a.at({line: 5});
 			assert.strictEqual(old_a.type, 'null');
@@ -50,7 +47,7 @@ describe('Protodoc.Structure.Structure', () => {
 
 			old_a = a.at({line: 10, character: 3});
 			assert.strictEqual(old_a.type, 'string');
-			assert.strictEqual(old_a.class, null);
+			assert.strictEqual(old_a.class, undefined);
 
 			let b = vars.b;
 			assert.strictEqual(b.type, 'number');

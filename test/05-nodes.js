@@ -91,7 +91,7 @@ describe('Protodoc.Node', () => {
 		let {foo} = testDeclaration(`let foo; foo = 1`);
 
 		assert.strictEqual(foo.type, 'number');
-		assert.strictEqual(foo.class, null);
+		assert.strictEqual(foo.class, undefined);
 	});
 
 	testNode('AwaitExpression', () => {
@@ -113,7 +113,7 @@ describe('Protodoc.Node', () => {
 		let {foo} = testDeclaration(`let foo = 1 + 1`);
 
 		assert.strictEqual(foo.type, 'number');
-		assert.strictEqual(foo.class, null);
+		assert.strictEqual(foo.class, undefined);
 	});
 
 	// testNode('BlockStatement', () => {
@@ -129,7 +129,7 @@ describe('Protodoc.Node', () => {
 		let {foo} = testDeclaration(`let foo = test()`);
 
 		assert.strictEqual(foo.type, 'undefined');
-		assert.strictEqual(foo.class, null);
+		assert.strictEqual(foo.class, undefined);
 	});
 
 	testNode('ForStatement', () => {

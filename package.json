@@ -1,5 +1,5 @@
 {
-	"name"            : "protodoc",
+	"name"            : "@11ways/protodoc",
 	"description"     : "A documentation generator for your JavaScript code",
 	"author"          : "Jelle De Loecker <jelle@elevenways.be>",
 	"version"         : "0.1.0-alpha",
