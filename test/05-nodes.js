@@ -14,7 +14,7 @@ function parse(source) {
 	return runtime.parse(source);
 }
 
-function testDeclaration(source) {
+global.testDeclaration = function testDeclaration(source) {
 
 	let root = parse(source),
 	    scope = root.getScope(),
@@ -45,6 +45,7 @@ function testDeclaration(source) {
 		scope,
 		vars,
 		foo,
+		runtime : root.runtime,
 	};
 }
 
@@ -59,7 +60,11 @@ describe('Protodoc.Node', () => {
 		let {vars, foo} = testDeclaration(source);
 
 		check.type(vars, 'foo', 'object');
-		assert.strictEqual(foo.class, 'Array');
+
+		// Class names are no longer set
+		//assert.strictEqual(foo.class, 'Array');
+
+		check.typeof(vars.foo.get('length'), 'number');
 
 		check.type(vars, 'one', 'number');
 
@@ -74,7 +79,13 @@ describe('Protodoc.Node', () => {
 		check.type(vars, 'foo', 'number');
 
 		check.type(vars, 'rest', 'object');
-		assert.strictEqual(vars.rest.class, 'Array');
+
+		// Class names are no longer set
+		//assert.strictEqual(vars.rest.class, 'Array');
+
+		console.log('REST::', vars.rest);
+
+		check.typeof(vars.rest.get('length'), 'number');
 
 	});
 
