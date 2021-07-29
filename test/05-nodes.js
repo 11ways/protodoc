@@ -83,8 +83,6 @@ describe('Protodoc.Node', () => {
 		// Class names are no longer set
 		//assert.strictEqual(vars.rest.class, 'Array');
 
-		console.log('REST::', vars.rest);
-
 		check.typeof(vars.rest.get('length'), 'number');
 
 	});

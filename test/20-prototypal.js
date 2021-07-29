@@ -13,6 +13,8 @@ describe('Protodoc.Structure.Prototypal', () => {
 			let a = foo.get('a');
 
 			check.typeof(a, 'number');
+
+			let proto = foo.get('prototype');
 		});
 
 		it('should look for prototype properties for globals', () => {
@@ -44,7 +46,7 @@ describe('Protodoc.Structure.Prototypal', () => {
 			check.typeof(x, 'number');
 		});
 
-		it.skip('should find properties set in the constructor', () => {
+		it('should find properties set in the constructor', () => {
 
 			let source = `
 				let MyClass = function MyClass() {
@@ -60,6 +62,55 @@ describe('Protodoc.Structure.Prototypal', () => {
 
 			check.typeof(x, 'number');
 			check.typeof(foo.get('y'), 'string');
+		});
+
+		it('should find properties set with a `call`-ed method (that has been hoisted)', () => {
+
+			let source = `
+
+				function Test() {
+					this.zever = 1;
+					more.call(this);
+				}
+
+				function more() {
+					this.more = true;
+				}
+
+				let foo = new Test();
+			`;
+
+			let {vars, foo} = testDeclaration(source);
+
+			let zever = foo.get('zever');
+			let more = foo.get('more');
+
+			check.typeof(zever, 'number');
+			check.typeof(more, 'boolean');
+
+			source = `
+
+				function Test() {
+					this.zever = 1;
+					more.call({});
+				}
+
+				function more() {
+					this.more = true;
+				}
+
+				let foo = new Test();
+			`;
+
+			let two = testDeclaration(source);
+
+			foo = two.foo;
+
+			zever = foo.get('zever');
+			more = foo.get('more');
+
+			check.typeof(zever, 'number');
+			assert.strictEqual(more, undefined)
 		});
 	});
 

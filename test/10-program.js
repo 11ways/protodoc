@@ -34,4 +34,20 @@ describe('Protodoc.Node.Program', () => {
 			check.type(vars, 'internal', 'boolean');
 		});
 	});
+
+	describe('#getNodeAt(position)', () => {
+		it('should return the node at a given position', () => {
+
+			let code = `
+				let nr = 1;
+				let str = "str";
+				let obj = {a: 1};
+				obj.
+			`;
+
+			let runtime = new Protodoc.Runtime();
+			let program = runtime.parse(code);
+
+		});
+	})
 });
